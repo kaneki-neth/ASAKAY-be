@@ -11,7 +11,7 @@ The project is in the early stages of infrastructure setup, focusing on the IAM 
 
 ## Core Domain Entities (Planned/Active)
 - **Users & Roles:** RBAC active.
-- **Vehicles:** (Planned) Management of transport types.
+- **Vehicles:** Active. Management of transport types (Jeepney, Bus, Van) with ownership-based authorization.
 - **Routes:** (Planned) Geometry and mapping logic.
 - **Stops:** (Planned) Stop point coordinates and metadata.
 
