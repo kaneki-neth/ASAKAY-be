@@ -13,12 +13,12 @@ At the start of **every** new conversation or session, your first priority is to
 5.  **`agent/memory.md`**: Check for any user-specific preferences or active working notes.
 
 ## 2. Project Overview
-**Asakay Backend** is a specialized RESTful API built with **Laravel 12** and **PHP 8.2+**. Its primary purpose is to provide a secure and scalable Identity and Access Management (IAM) foundation for enterprise applications.
+**ASAKAY** is a route-mapping platform designed to help users navigate unfamiliar destinations using fixed-route public transportation, including jeepneys, buses, and vans. 
 
-### Core Technology Stack:
-- **Framework:** Laravel 12 (latest stable).
-- **Authentication:** Stateless JWT via `tymon/jwt-auth`.
-- **Authorization:** Granular RBAC (Roles/Permissions).
+This backend provides a RESTful API built with **Laravel 12** and **PHP 8.2+**. It handles:
+- **Identity & Access Management:** Secure authentication and granular RBAC.
+- **Vehicle Management:** Managing transport types (jeepneys, buses, etc.).
+- **Route Logic:** Storage for route geometry, stop points, and search logic.
 - **Standards:** PSR-12, standardized JSON responses via `ApiResponse` trait.
 
 ## 3. Operational Mandate

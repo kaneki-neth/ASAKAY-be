@@ -12,51 +12,51 @@ class PermissionSeeder extends Seeder
     {
         $permissions = [
             [
-                'name' => 'view_users',
+                'name' => 'can_view_users',
                 'description' => 'Can view users list and details',
             ],
             [
-                'name' => 'create_users',
+                'name' => 'can_create_users',
                 'description' => 'Can create new users',
             ],
             [
-                'name' => 'edit_users',
+                'name' => 'can_edit_users',
                 'description' => 'Can edit existing users',
             ],
             [
-                'name' => 'delete_users',
+                'name' => 'can_delete_users',
                 'description' => 'Can delete users',
             ],
             [
-                'name' => 'view_roles',
+                'name' => 'can_view_roles',
                 'description' => 'Can view roles list and details',
             ],
             [
-                'name' => 'create_roles',
+                'name' => 'can_create_roles',
                 'description' => 'Can create new roles',
             ],
             [
-                'name' => 'edit_roles',
+                'name' => 'can_edit_roles',
                 'description' => 'Can edit existing roles',
             ],
             [
-                'name' => 'delete_roles',
+                'name' => 'can_delete_roles',
                 'description' => 'Can delete roles',
             ],
             [
-                'name' => 'view_permissions',
+                'name' => 'can_view_permissions',
                 'description' => 'Can view permissions list and details',
             ],
             [
-                'name' => 'create_permissions',
+                'name' => 'can_create_permissions',
                 'description' => 'Can create new permissions',
             ],
             [
-                'name' => 'edit_permissions',
+                'name' => 'can_edit_permissions',
                 'description' => 'Can edit existing permissions',
             ],
             [
-                'name' => 'delete_permissions',
+                'name' => 'can_delete_permissions',
                 'description' => 'Can delete permissions',
             ],
         ];

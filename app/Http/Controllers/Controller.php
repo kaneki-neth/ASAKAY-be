@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Traits\ApiResponse;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Routing\Controller as BaseController;
 
-abstract class Controller
+abstract class Controller extends BaseController
 {
-    use ApiResponse;
+    use ApiResponse, AuthorizesRequests;
     //
 }

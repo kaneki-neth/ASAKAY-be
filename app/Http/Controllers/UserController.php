@@ -9,6 +9,11 @@ use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(User::class, 'user');
+    }
+
     public function index()
     {
         return $this->success(User::with('roles')->get(), 'Users retrieved successfully');

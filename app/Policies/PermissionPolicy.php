@@ -9,11 +9,23 @@ use Illuminate\Auth\Access\Response;
 class PermissionPolicy
 {
     /**
+     * Perform pre-authorization checks.
+     */
+    public function before(User $user, string $ability): bool|null
+    {
+        if ($user->roles()->where('name', 'Super Admin')->exists()) {
+            return true;
+        }
+
+        return null;
+    }
+
+    /**
      * Determine whether the user can view any models.
      */
     public function viewAny(User $user): bool
     {
-        return false;
+        return $user->hasPermissionTo('can_view_permissions');
     }
 
     /**
@@ -21,7 +33,7 @@ class PermissionPolicy
      */
     public function view(User $user, Permission $permission): bool
     {
-        return false;
+        return $user->hasPermissionTo('can_view_permissions');
     }
 
     /**
@@ -29,7 +41,7 @@ class PermissionPolicy
      */
     public function create(User $user): bool
     {
-        return false;
+        return $user->hasPermissionTo('can_create_permissions');
     }
 
     /**
@@ -37,7 +49,7 @@ class PermissionPolicy
      */
     public function update(User $user, Permission $permission): bool
     {
-        return false;
+        return $user->hasPermissionTo('can_edit_permissions');
     }
 
     /**
@@ -45,7 +57,7 @@ class PermissionPolicy
      */
     public function delete(User $user, Permission $permission): bool
     {
-        return false;
+        return $user->hasPermissionTo('can_delete_permissions');
     }
 
     /**
@@ -53,7 +65,7 @@ class PermissionPolicy
      */
     public function restore(User $user, Permission $permission): bool
     {
-        return false;
+        return $user->hasPermissionTo('can_edit_permissions');
     }
 
     /**
@@ -61,6 +73,6 @@ class PermissionPolicy
      */
     public function forceDelete(User $user, Permission $permission): bool
     {
-        return false;
+        return $user->hasPermissionTo('can_delete_permissions');
     }
 }

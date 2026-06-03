@@ -12,6 +12,10 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory(30)->create();
+        User::factory(30)->create()->each(function ($user) {
+            $user->roles()->syncWithoutDetaching([
+                \App\Models\Role::where('name', 'User')->first()->id
+            ]);
+        });
     }
 }

@@ -7,6 +7,11 @@ use Illuminate\Http\Request;
 
 class PermissionController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(Permission::class, 'permission');
+    }
+
     public function index()
     {
         return $this->success(Permission::all(), 'Permissions retrieved successfully');

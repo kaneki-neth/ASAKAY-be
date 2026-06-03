@@ -7,6 +7,11 @@ use Illuminate\Http\Request;
 
 class RoleController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(Role::class, 'role');
+    }
+
     public function index()
     {
         return $this->success(Role::with('permissions')->get(), 'Roles retrieved successfully');

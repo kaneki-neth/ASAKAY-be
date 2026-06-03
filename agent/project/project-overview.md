@@ -1,24 +1,25 @@
-# Project Overview: Asakay Backend
+# Project Overview: ASAKAY
 
 ## System Purpose
-The **Asakay Backend** is a specialized RESTful API built to provide a robust foundation for an enterprise-level management system. It focuses on secure authentication, fine-grained access control, and scalable user management.
+**ASAKAY** is a route-mapping platform designed to help users navigate unfamiliar destinations using fixed-route public transportation such as jeepneys, buses, and vans. The backend provides the core API infrastructure for authentication, transport management, and route calculation.
 
 ## Business Domain
-- **Core Domain:** User Identity and Access Management (IAM).
-- **Secondary Domain:** Administrative Dashboard and System Orchestration.
+- **Primary Domain:** Public Transportation & Navigation.
+- **Secondary Domain:** Identity and Access Management (IAM) for system administrators and users.
 
 ## Major Modules
-- **Authentication:** Secure login/logout using JWT (JSON Web Tokens).
-- **User Management:** CRUD operations for system users.
-- **Role Management:** Definition and management of organizational roles.
-- **Permission Management:** Granular control over system actions.
-- **RBAC Orchestration:** Mapping users to roles and roles to permissions.
+- **Route Management:** Storage and retrieval of route geometry and geographic data.
+- **Stop Point Management:** Definition of loading/unloading areas for public transport.
+- **Vehicle Management:** Management of different public transportation types (Jeepneys, Buses, Vans).
+- **Search Logic:** Core engine for finding navigation routes between points.
+- **Authentication & RBAC:** Secure access control for users and system administrators.
 
 ## User Roles
-- **Admin:** Full system access.
-- **Standard User:** Restricted access based on assigned roles.
+- **Super Admin:** Full system access.
+- **Admin:** Restricted management access (typically view-only or limited scope).
+- **Standard User:** General platform access for navigation and profile management.
 
 ## Core Workflows
-1. **Authentication Flow:** User submits credentials → API validates and returns JWT → User includes JWT in subsequent requests.
-2. **Access Control Flow:** Middleware intercepts request → Checks user roles and permissions → Allows or denies access based on defined policies.
-3. **Administration Flow:** Admin manages users, roles, and permissions through specialized endpoints.
+1. **Route Search:** User inputs origin and destination → API processes route geometry and stop points → Returns optimal transport paths.
+2. **Transportation Management:** Admin updates route paths or stop locations → System reflects changes in real-time navigation.
+3. **Identity & Access:** Secure login via JWT → Permission-based access to administrative and user-specific features.

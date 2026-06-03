@@ -63,4 +63,17 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->belongsToMany(Role::class);
     }
+
+    /**
+     * Check if the user has a specific permission.
+     *
+     * @param string $permissionName
+     * @return bool
+     */
+    public function hasPermissionTo(string $permissionName): bool
+    {
+        return $this->roles()->whereHas('permissions', function ($query) use ($permissionName) {
+            $query->where('name', $permissionName);
+        })->exists();
+    }
 }

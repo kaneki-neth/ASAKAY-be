@@ -41,4 +41,15 @@ class UserFactory extends Factory
             'email_verified_at' => null,
         ]);
     }
+
+    /**
+     * Configure the factory.
+     */
+    public function configure(): static
+    {
+        return $this->afterCreating(function (\App\Models\User $user) {
+            $role = \App\Models\Role::firstOrCreate(['name' => 'User']);
+            $user->roles()->syncWithoutDetaching([$role->id]);
+        });
+    }
 }

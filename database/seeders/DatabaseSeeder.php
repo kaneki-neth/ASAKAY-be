@@ -15,17 +15,51 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        $this->call([
+            RoleSeeder::class,
+        ]);
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-            'password' => bcrypt('password'),
+        // Create Super Admin
+        $superAdmin = \App\Models\User::updateOrCreate(
+            ['email' => 'superadmin@email.com'],
+            [
+                'name' => 'Super Admin',
+                'password' => bcrypt('password'),
+            ]
+        );
+        $superAdmin->roles()->syncWithoutDetaching([
+            \App\Models\Role::where('name', 'Super Admin')->first()->id
+        ]);
+
+        // Create Admin
+        $admin = \App\Models\User::updateOrCreate(
+            ['email' => 'admin@email.com'],
+            [
+                'name' => 'Admin User',
+                'password' => bcrypt('password'),
+            ]
+        );
+        $admin->roles()->syncWithoutDetaching([
+            \App\Models\Role::where('name', 'Admin')->first()->id
+        ]);
+
+        // Create Regular User
+        $user = \App\Models\User::updateOrCreate(
+            ['email' => 'test@email.com'],
+            [
+                'name' => 'Test User',
+                'password' => bcrypt('password'),
+            ]
+        );
+
+        $user->roles()->syncWithoutDetaching([
+            \App\Models\Role::where('name', 'User')->first()->id
+        ]);
+        $this->call([
+            PermissionSeeder::class,
         ]);
 
         $this->call([
-            RoleSeeder::class,
-            PermissionSeeder::class,
             UserSeeder::class,
         ]);
     }
