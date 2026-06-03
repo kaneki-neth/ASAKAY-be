@@ -1,7 +1,9 @@
 # Project Overview: ASAKAY
 
 ## System Purpose
-**ASAKAY** is a route-mapping platform designed to help users navigate unfamiliar destinations using fixed-route public transportation such as jeepneys, buses, and vans. The backend provides the core API infrastructure for authentication, transport management, and route calculation.
+**ASAKAY** is a web application that helps users discover how to travel to unfamiliar places using public transportation routes. It is a route-mapping platform that helps users find how to reach unfamiliar destinations using fixed-route public transportation such as jeepneys, buses, and vans. 
+
+The backend provides the core API infrastructure for authentication, transport management, and route calculation.
 
 ## Business Domain
 - **Primary Domain:** Public Transportation & Navigation.

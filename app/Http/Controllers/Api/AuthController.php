@@ -24,12 +24,15 @@ class AuthController extends Controller
             // Update last_login_at
             $user = JWTAuth::user();
             $user->update(['last_login_at' => now()]);
+            
+            // Load roles and permissions for the frontend
+            $user->load('roles.permissions');
 
             return $this->success([
                 'access_token' => $token,
                 'token_type' => 'Bearer',
                 'expires_in' => JWTAuth::factory()->getTTL() * 60,
-                'user' => JWTAuth::user(),
+                'user' => $user,
             ], 'Login successful');
 
         } catch (JWTException $e) {
@@ -71,6 +74,9 @@ class AuthController extends Controller
             if (!$user) {
                 return $this->error('User not found', 404);
             }
+
+            // Load roles and permissions for the frontend
+            $user->load('roles.permissions');
 
             return $this->success($user, 'User profile retrieved successfully');
 
