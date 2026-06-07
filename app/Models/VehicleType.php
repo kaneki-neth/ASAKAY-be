@@ -6,30 +6,19 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Vehicle extends Model
+class VehicleType extends Model
 {
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
         'name',
-        'code',
-        'vehicle_type_id',
         'description',
         'status',
         'created_by',
-        'updated_by',
     ];
 
     /**
-     * Get the vehicle type.
-     */
-    public function vehicleType()
-    {
-        return $this->belongsTo(VehicleType::class);
-    }
-
-    /**
-     * Get the user who created the vehicle.
+     * Get the user who created the vehicle type.
      */
     public function creator()
     {
@@ -37,10 +26,10 @@ class Vehicle extends Model
     }
 
     /**
-     * Get the user who last updated the vehicle.
+     * Get the vehicles of this type.
      */
-    public function updater()
+    public function vehicles()
     {
-        return $this->belongsTo(User::class, 'updated_by');
+        return $this->hasMany(Vehicle::class);
     }
 }

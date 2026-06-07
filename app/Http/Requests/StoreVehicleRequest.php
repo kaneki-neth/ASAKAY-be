@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Foundation\Http\FormRequest;  
 
 class StoreVehicleRequest extends FormRequest
 {
@@ -20,7 +20,6 @@ class StoreVehicleRequest extends FormRequest
     protected function prepareForValidation(): void
     {
         $this->merge([
-            'type' => strtolower($this->type),
             'status' => strtolower($this->status),
         ]);
     }
@@ -35,9 +34,10 @@ class StoreVehicleRequest extends FormRequest
         return [
             'name' => 'required|string|max:255',
             'code' => 'nullable|string|unique:vehicles,code|max:50',
-            'type' => 'required|string|in:jeepney,bus,van',
+            'vehicle_type_id' => 'required|exists:vehicle_types,id',
             'description' => 'nullable|string',
             'status' => 'nullable|string|in:active,inactive',
         ];
     }
 }
+

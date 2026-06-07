@@ -72,6 +72,11 @@ class User extends Authenticatable implements JWTSubject
      */
     public function hasPermissionTo(string $permissionName): bool
     {
+        // Super Admin bypass
+        if ($this->roles()->where('name', 'Super Admin')->exists()) {
+            return true;
+        }
+
         return $this->roles()->whereHas('permissions', function ($query) use ($permissionName) {
             $query->where('name', $permissionName);
         })->exists();

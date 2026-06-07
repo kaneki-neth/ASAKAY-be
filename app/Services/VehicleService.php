@@ -13,7 +13,7 @@ class VehicleService
      */
     public function getPaginatedVehicles(array $filters = [], int $perPage = 15): LengthAwarePaginator
     {
-        $query = Vehicle::query()->with(['creator', 'updater']);
+        $query = Vehicle::query()->with(['creator', 'updater', 'vehicleType']);
 
         // Search by name and code
         if (!empty($filters['search'])) {
@@ -25,8 +25,8 @@ class VehicleService
         }
 
         // Filter by type
-        if (!empty($filters['type'])) {
-            $query->where('type', $filters['type']);
+        if (!empty($filters['vehicle_type_id'])) {
+            $query->where('vehicle_type_id', $filters['vehicle_type_id']);
         }
 
         // Filter by status
