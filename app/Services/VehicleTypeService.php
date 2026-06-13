@@ -18,7 +18,7 @@ class VehicleTypeService
             $query->where('name', 'like', "%{$search}%");
         }
 
-        return $query->latest()->paginate($perPage);
+        return $query->withCount(['vehicles', 'routes'])->latest()->paginate($perPage);
     }
 
     /**

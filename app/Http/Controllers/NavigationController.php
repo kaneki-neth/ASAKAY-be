@@ -19,12 +19,15 @@ class NavigationController extends Controller
             'origin_lng' => 'required|numeric',
             'dest_lat' => 'required|numeric',
             'dest_lng' => 'required|numeric',
+            'vehicle_type_ids' => 'nullable|array',
+            'vehicle_type_ids.*' => 'integer',
         ]);
 
         $originLat = $request->origin_lat;
         $originLng = $request->origin_lng;
         $destLat = $request->dest_lat;
         $destLng = $request->dest_lng;
+        $vehicleTypeIds = $request->vehicle_type_ids;
 
         // 1. Find Nearby Stops (Radius ~500m)
         $originStops = $this->findNearbyStops($originLat, $originLng);
@@ -37,7 +40,7 @@ class NavigationController extends Controller
         $itineraries = [];
 
         // 2. Check for Direct Routes
-        $directRoutes = $this->findDirectRoutes($originStops, $destStops);
+        $directRoutes = $this->findDirectRoutes($originStops, $destStops, $vehicleTypeIds);
         foreach ($directRoutes as $result) {
             $itineraries[] = [
                 'type' => 'direct',
@@ -71,7 +74,7 @@ class NavigationController extends Controller
 
         // Return results
         if (empty($itineraries)) {
-            return $this->error('No direct routes found. Transfer logic coming soon.', 404);
+            return $this->error('No direct routes found with current filters.', 404);
         }
 
         return $this->success($itineraries, 'Itineraries calculated successfully');
@@ -87,12 +90,12 @@ class NavigationController extends Controller
             ->get();
     }
 
-    protected function findDirectRoutes($originStops, $destStops)
+    protected function findDirectRoutes($originStops, $destStops, $vehicleTypeIds = null)
     {
         $originStopIds = $originStops->pluck('id')->toArray();
         $destStopIds = $destStops->pluck('id')->toArray();
 
-        return DB::table('route_stop as rs1')
+        $query = DB::table('route_stop as rs1')
             ->join('route_stop as rs2', 'rs1.route_id', '=', 'rs2.route_id')
             ->join('routes', 'rs1.route_id', '=', 'routes.id')
             ->join('stops as s1', 'rs1.stop_id', '=', 's1.id')
@@ -100,8 +103,13 @@ class NavigationController extends Controller
             ->whereIn('rs1.stop_id', $originStopIds)
             ->whereIn('rs2.stop_id', $destStopIds)
             ->whereRaw('rs1.order < rs2.order') // Must be in forward direction
-            ->where('routes.status', 'active')
-            ->select(
+            ->where('routes.status', 'active');
+
+        if (!empty($vehicleTypeIds)) {
+            $query->whereIn('routes.vehicle_type_id', $vehicleTypeIds);
+        }
+
+        return $query->select(
                 'routes.id as route_id',
                 'routes.name as route_name',
                 'routes.code as route_code',

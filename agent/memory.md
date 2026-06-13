@@ -8,6 +8,8 @@ The project is in the early stages of infrastructure setup, focusing on the IAM 
 - **RBAC Convention:** Permissions now use a mandatory `can_` prefix (e.g., `can_delete_users`).
 - **Authorization Pattern:** Controllers now use `authorizeResource` linked to Laravel Policies for all CRUD operations.
 - **System Initialization:** A data migration `insert_initial_system_users_and_roles` is used to bootstrap core roles and admin users idempotently.
+- **Automated Logging:** Every API request and its response payload are now automatically logged using the `LogApiActivity` middleware.
+- **Dual-Channel Logging:** Logs are simultaneously written to a cumulative `laravel.log` and date-specific `laravel-YYYY-MM-DD.log` files.
 
 ## Core Domain Entities (Planned/Active)
 - **Users & Roles:** RBAC active.
@@ -19,3 +21,4 @@ The project is in the early stages of infrastructure setup, focusing on the IAM 
 - Use `can_` prefix for all new permissions.
 - Extend `App\Http\Controllers\Controller` which now includes `AuthorizesRequests` and extends `BaseController` for middleware support.
 - All administrative emails should use the `@email.com` domain for default system accounts.
+- **Mandatory Log Review:** Always check `storage/logs/laravel.log` or the specific daily log after test execution or API requests. Logging is now automated via middleware and dual-channel configuration.

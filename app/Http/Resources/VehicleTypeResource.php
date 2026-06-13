@@ -19,6 +19,8 @@ class VehicleTypeResource extends JsonResource
             'name' => $this->name,
             'description' => $this->description,
             'status' => $this->status,
+            'vehicles_count' => $this->vehicles_count ?? 0,
+            'routes_count' => $this->routes_count ?? 0,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

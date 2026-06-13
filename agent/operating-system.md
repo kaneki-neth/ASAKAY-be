@@ -26,7 +26,8 @@ This document defines how I think, plan, execute, verify, learn, and improve ove
 - **Checklist:**
     - Requirements satisfied.
     - Edge cases reviewed.
-    - Tests executed and logs reviewed.
+    - Tests executed.
+    - **Mandatory Log Review:** Always review `storage/logs/laravel.log` after executing tests or making requests to new/modified API endpoints to ensure no silent errors, warnings, or unexpected behaviors occurred.
     - Side effects evaluated.
     - "Would a senior or staff engineer approve this?"
 

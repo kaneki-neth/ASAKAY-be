@@ -21,6 +21,15 @@ All controllers must use the `ApiResponse` trait to ensure a consistent JSON str
 }
 ```
 
+## Automated API Logging
+Every API request and response is automatically logged via the `LogApiActivity` middleware. 
+- **Location:** `app/Http/Middleware/LogApiActivity.php`
+- **What is logged:** URL, Method, IP, Request Payload (sensitive fields masked), Response Status, and Response Payload.
+- **Log Channels:** Dual-channel logging is enabled.
+    - `laravel.log`: Cumulative log containing all entries.
+    - `laravel-YYYY-MM-DD.log`: Daily log files for easier day-by-day monitoring.
+- **Monitoring:** Use `tail -f storage/logs/laravel.log` for overall activity or check the specific daily file.
+
 ## Controller Pattern
 Controllers generally follow this structure:
 1. **Try-Catch Block:** Wrap logic in `try-catch` to handle exceptions gracefully.
