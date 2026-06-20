@@ -32,4 +32,12 @@ class VehicleType extends Model
     {
         return $this->hasMany(Vehicle::class);
     }
+
+    /**
+     * Get the routes of this vehicle type.
+     */
+    public function routes()
+    {
+        return $this->hasMany(Route::class);
+    }
 }

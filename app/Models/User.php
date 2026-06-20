@@ -65,6 +65,30 @@ class User extends Authenticatable implements JWTSubject
     }
 
     /**
+     * Get the routes created by the user.
+     */
+    public function routes()
+    {
+        return $this->hasMany(Route::class, 'created_by');
+    }
+
+    /**
+     * Get the stops created by the user.
+     */
+    public function stops()
+    {
+        return $this->hasMany(Stop::class, 'created_by');
+    }
+
+    /**
+     * Get the vehicles created by the user.
+     */
+    public function vehicles()
+    {
+        return $this->hasMany(Vehicle::class, 'created_by');
+    }
+
+    /**
      * Check if the user has a specific permission.
      *
      * @param string $permissionName
